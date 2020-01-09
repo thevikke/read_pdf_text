@@ -68,7 +68,6 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
       Log.e("PdfBox-Android-Sample", "Exception thrown while loading document to strip", e);
       }
       try {
-      //!error: package com.tom_roush.pdfbox.parsedText does not exist
       PDFTextStripper pdfStripper = new PDFTextStripper();
       // pdfStripper.setStartPage(0);
       // pdfStripper.setEndPage(10);
