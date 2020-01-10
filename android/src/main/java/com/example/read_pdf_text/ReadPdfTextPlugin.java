@@ -23,9 +23,10 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     final MethodChannel channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "read_pdf_text");
-    // Getting the application context for pdfBox
-    PDFBoxResourceLoader.init(flutterPluginBinding.getApplicationContext());
+
     channel.setMethodCallHandler(new ReadPdfTextPlugin());
+        // Getting the application context for pdfBox
+    PDFBoxResourceLoader.init(flutterPluginBinding.getApplicationContext());
   }
 
   // This static function is optional and equivalent to onAttachedToEngine. It supports the old
@@ -39,9 +40,10 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
   // in the same class.
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "read_pdf_text");
-    // Getting the application context for pdfBox
-    PDFBoxResourceLoader.init(registrar.activity().getApplicationContext());
+  
     channel.setMethodCallHandler(new ReadPdfTextPlugin());
+      // Getting the application context for pdfBox
+    PDFBoxResourceLoader.init(registrar.activity().getApplicationContext());
   }
 
   @Override

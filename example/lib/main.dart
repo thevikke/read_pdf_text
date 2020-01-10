@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_isolate/flutter_isolate.dart';
 import 'package:read_pdf_text/read_pdf_text.dart';
 
 void main() {
@@ -36,11 +37,12 @@ class _MyAppState extends State<MyApp> {
               //? the compute has a bug in it and doens't work with [methodChannels]
               //? back to using HandlerThread
               //! it might be possible with [flutter_isolate] afterall!
-              final pdfText = await compute(getPDFtext, file.path);
-
-              final text = pdfText.replaceAll("\n", " ");
-              setState(() {
-                _pdfText = text;
+              //! Unhandled Exception: MissingPluginException(No implementation found for method getPDFtext on channel read_pdf_text)
+              await FlutterIsolate.spawn(getPDFtext, file.path).then((pdfText) {
+                final text = pdfText.replaceAll("\n", " ");
+                setState(() {
+                  _pdfText = text;
+                });
               });
             });
           },
@@ -58,9 +60,9 @@ class _MyAppState extends State<MyApp> {
 
 Future<String> getPDFtext(String path) async {
   String text = "";
-  ReadPdfText readPdfText = ReadPdfText();
+
   try {
-    text = await readPdfText.getPDFtext(path);
+    text = await ReadPdfText.getPDFtext(path);
   } on PlatformException {
     text = 'Failed to get pdf text.';
   }
