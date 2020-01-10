@@ -37,6 +37,7 @@ class _MyAppState extends State<MyApp> {
               //? the compute has a bug in it and doens't work with [methodChannels]
               //? back to using HandlerThread
               //! it might be possible with [flutter_isolate] afterall!
+              //? Caused by the [flutter_isolate]
               //! Unhandled Exception: MissingPluginException(No implementation found for method getPDFtext on channel read_pdf_text)
               await FlutterIsolate.spawn(getPDFtext, file.path).then((pdfText) {
                 final text = pdfText.replaceAll("\n", " ");
