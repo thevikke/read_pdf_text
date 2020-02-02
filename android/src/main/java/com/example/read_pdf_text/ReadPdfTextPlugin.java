@@ -71,8 +71,9 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
       }
       try {
       PDFTextStripper pdfStripper = new PDFTextStripper();
-      // pdfStripper.setStartPage(0);
-      // pdfStripper.setEndPage(10);
+       pdfStripper.setStartPage(0);
+       pdfStripper.setEndPage(10);
+       
       parsedText = pdfStripper.getText(document);
 
       } catch (IOException e) {

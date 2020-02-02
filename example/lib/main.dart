@@ -23,7 +23,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _pdfText = '';
-
+  bool _loading = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,17 +32,21 @@ class _MyAppState extends State<MyApp> {
           child: Icon(Icons.folder_open),
           onPressed: () {
             FilePicker.getFile().then((File file) async {
+              setState(() {
+                _loading = true;
+              });
               //? this takes a long time possible to do it seperately [HandlerThread]
               //? or rather use compute the dart Isolates
               //? the compute has a bug in it and doens't work with [methodChannels]
-              //? back to using HandlerThread
+              //? back to using [HandlerThread]
               //! it might be possible with [flutter_isolate] afterall!
               //? Caused by the [flutter_isolate]
               //! Unhandled Exception: MissingPluginException(No implementation found for method getPDFtext on channel read_pdf_text)
-              await FlutterIsolate.spawn(getPDFtext, file.path).then((pdfText) {
+              getPDFtext(file.path).then((pdfText) {
                 final text = pdfText.replaceAll("\n", " ");
                 setState(() {
                   _pdfText = text;
+                  _loading = false;
                 });
               });
             });
@@ -52,7 +56,11 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: SingleChildScrollView(
-          child: Text(_pdfText),
+          child: _loading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Text(_pdfText),
         ),
       ),
     );
