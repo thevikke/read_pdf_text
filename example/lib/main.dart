@@ -32,9 +32,6 @@ class _MyAppState extends State<MyApp> {
           child: Icon(Icons.folder_open),
           onPressed: () {
             FilePicker.getFile().then((File file) async {
-              setState(() {
-                _loading = true;
-              });
               //? this takes a long time possible to do it seperately [HandlerThread]
               //? or rather use compute the dart Isolates
               //? the compute has a bug in it and doens't work with [methodChannels]
@@ -42,13 +39,18 @@ class _MyAppState extends State<MyApp> {
               //! it might be possible with [flutter_isolate] afterall!
               //? Caused by the [flutter_isolate]
               //! Unhandled Exception: MissingPluginException(No implementation found for method getPDFtext on channel read_pdf_text)
-              getPDFtext(file.path).then((pdfText) {
-                final text = pdfText.replaceAll("\n", " ");
+              if (file.path.isNotEmpty) {
                 setState(() {
-                  _pdfText = text;
-                  _loading = false;
+                  _loading = true;
                 });
-              });
+                getPDFtext(file.path).then((pdfText) {
+                  final text = pdfText.replaceAll("\n", " ");
+                  setState(() {
+                    _pdfText = text;
+                    _loading = false;
+                  });
+                });
+              }
             });
           },
         ),
