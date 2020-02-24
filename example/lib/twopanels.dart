@@ -62,15 +62,17 @@ class _TwoPanelsState extends State<TwoPanels> {
                   color: Colors.transparent,
                   child: Column(
                     children: <Widget>[
-                      Container(
-                        height: header_height,
-                        child: Center(
-                          child: Text(
-                            widget.frontPanelHeader,
-                            style: theme.textTheme.button,
-                          ),
-                        ),
-                      ),
+                      widget.isPanelVisible()
+                          ? Container()
+                          : Container(
+                              height: header_height,
+                              child: Center(
+                                child: Text(
+                                  widget.frontPanelHeader,
+                                  style: theme.textTheme.button,
+                                ),
+                              ),
+                            ),
                       Expanded(
                         child: widget.frontPanel,
                       )
