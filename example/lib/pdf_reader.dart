@@ -6,12 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:read_pdf_text/read_pdf_text.dart';
 
 // make this the example app and move the rest of the code to another file
-class PDFreader extends StatefulWidget {
+class PDFreaderExample extends StatefulWidget {
   @override
-  _PDFreaderState createState() => _PDFreaderState();
+  _PDFreaderExampleState createState() => _PDFreaderExampleState();
 }
 
-class _PDFreaderState extends State<PDFreader> {
+class _PDFreaderExampleState extends State<PDFreaderExample> {
   String _pdfText = '';
   bool _loading = false;
   @override
@@ -21,13 +21,6 @@ class _PDFreaderState extends State<PDFreader> {
         child: Icon(Icons.folder_open),
         onPressed: () {
           FilePicker.getFile().then((File file) async {
-            //? this takes a long time possible to do it seperately [HandlerThread]
-            //? or rather use compute the dart Isolates
-            //? the compute has a bug in it and doens't work with [methodChannels]
-            //? back to using [HandlerThread]
-            //! it might be possible with [flutter_isolate] afterall!
-            //? Caused by the [flutter_isolate]
-            //! Unhandled Exception: MissingPluginException(No implementation found for method getPDFtext on channel read_pdf_text)
             if (file.path.isNotEmpty) {
               setState(() {
                 _loading = true;

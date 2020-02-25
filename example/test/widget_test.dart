@@ -12,7 +12,7 @@ import 'package:read_pdf_text_example/pdf_reader.dart';
 void main() {
   testWidgets('Verify Platform version', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(PDFreader());
+    await tester.pumpWidget(PDFreaderExample());
 
     // Verify that platform version is retrieved.
     expect(
