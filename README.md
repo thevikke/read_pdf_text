@@ -4,7 +4,7 @@ This package parses text out of pdf documents and returns it as a string.
 On Android the plugin uses [PDFbox](https://github.com/apache/pdfbox) open source library.
 The iOS version is not implemented yet.
 
-<img src="https://" width="300">
+<img src="https://github.com/thevikke/read_pdf_text/blob/master/read_pdf_text.png" width="300">
 
 ## Getting Started
 
