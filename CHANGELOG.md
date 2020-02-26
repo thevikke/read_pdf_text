@@ -13,3 +13,5 @@ Commented code
 ## 0.0.6
 Updated example (only opens pdf files now)
 Updated README
+## 0.0.7
+Updated README
