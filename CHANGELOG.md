@@ -2,3 +2,6 @@
 First version
 ## 0.0.2
 Second version fixed platforms
+## 0.0.3
+Wrote README file
+Added license

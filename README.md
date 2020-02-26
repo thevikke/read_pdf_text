@@ -1,14 +1,19 @@
 # read_pdf_text
 
-A new flutter plugin project.
+This is package parses text out of pdf documents and returns it as string.
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+The package at this point is only one function getPDFtext(path)
+Path being the path to the pdf file you want to parse.
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+/// Future<String> getPDFtext(String path) async {
+///   String text = "";
+///  try { 
+///   text = await ReadPdfText.getPDFtext(path);
+///   } on PlatformException {
+///    text = 'Failed to get pdf text.';
+///  }
+///   return text;
+///  }
+
