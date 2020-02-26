@@ -1,6 +1,6 @@
 # read_pdf_text
 
-This is package parses text out of pdf documents and returns it as string.
+This is package parses text out of pdf documents and returns it as string. This plugin uses PDFbox open source library.
 
 ## Getting Started
 
