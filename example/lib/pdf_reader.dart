@@ -5,12 +5,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:read_pdf_text/read_pdf_text.dart';
 
-// make this the example app and move the rest of the code to another file
 class PDFreaderExample extends StatefulWidget {
   @override
   _PDFreaderExampleState createState() => _PDFreaderExampleState();
 }
 
+// Example class for pdf text reader plugin
 class _PDFreaderExampleState extends State<PDFreaderExample> {
   String _pdfText = '';
   bool _loading = false;
@@ -20,11 +20,13 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.folder_open),
         onPressed: () {
+          // This example uses file picker to get the path
           FilePicker.getFile().then((File file) async {
             if (file.path.isNotEmpty) {
               setState(() {
                 _loading = true;
               });
+              // Call the function to parse text from pdf
               getPDFtext(file.path).then((pdfText) {
                 final text = pdfText.replaceAll("\n", " ");
                 setState(() {
@@ -51,7 +53,6 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
 
   Future<String> getPDFtext(String path) async {
     String text = "";
-
     try {
       text = await ReadPdfText.getPDFtext(path);
     } on PlatformException {
