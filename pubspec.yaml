@@ -1,6 +1,6 @@
 name: read_pdf_text
-description: A new flutter plugin project.
-version: 0.0.4
+description: This is a plugin that parses string out of pdf documents. It uses apache PDFbox to parse the pdf document. There is only one function so it is easy to use.
+version: 0.0.6
 homepage: https://github.com/thevikke/read_pdf_text
 
 environment:

@@ -21,7 +21,8 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
         child: Icon(Icons.folder_open),
         onPressed: () {
           // This example uses file picker to get the path
-          FilePicker.getFile().then((File file) async {
+          FilePicker.getFile(fileExtension: 'pdf', type: FileType.CUSTOM)
+              .then((File file) async {
             if (file.path.isNotEmpty) {
               setState(() {
                 _loading = true;

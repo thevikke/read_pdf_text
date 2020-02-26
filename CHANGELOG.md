@@ -7,3 +7,9 @@ Wrote README file
 Added license
 ## 0.0.4
 Updated README
+## 0.0.5
+Updated README
+Commented code
+## 0.0.6
+Updated example (only opens pdf files now)
+Updated README
