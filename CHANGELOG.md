@@ -15,3 +15,9 @@ Updated example (only opens pdf files now)
 Updated README
 ## 0.0.7
 Updated README
+## 0.0.8
+Removed unused variables and comments.
+Added functionality for paginating the text from pdf document.
+Added functionality to fetch the length of the pdf document in pages.
+Updated example to represent these changes.
+Updated README and description
