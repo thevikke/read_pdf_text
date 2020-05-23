@@ -50,9 +50,10 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
                   onPressed: () {
                     // This example uses file picker to get the path
                     FilePicker.getFile(
-                            fileExtension: 'pdf', type: FileType.CUSTOM)
+                            allowedExtensions: ["pdf"],
+                type: FileType.custom,)
                         .then((File file) async {
-                      if (file.path.isNotEmpty) {
+                      if (file != null) {
                         setState(() {
                           _loading = true;
                         });
@@ -77,9 +78,10 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
                   onPressed: () {
                     // This example uses file picker to get the path
                     FilePicker.getFile(
-                            fileExtension: 'pdf', type: FileType.CUSTOM)
+                           allowedExtensions: ["pdf"],
+                type: FileType.custom,)
                         .then((File file) async {
-                      if (file.path.isNotEmpty) {
+                      if (file != null) {
                         setState(() {
                           _loading = true;
                         });
@@ -109,9 +111,10 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
                   onPressed: () {
                     // This example uses file picker to get the path
                     FilePicker.getFile(
-                            fileExtension: 'pdf', type: FileType.CUSTOM)
+                             allowedExtensions: ["pdf"],
+                type: FileType.custom,)
                         .then((File file) async {
-                      if (file.path.isNotEmpty) {
+                      if (file != null) {
                         setState(() {
                           _loading = true;
                         });

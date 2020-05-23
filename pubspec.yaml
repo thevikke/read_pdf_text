@@ -29,6 +29,8 @@ flutter:
       android:
         package: com.example.read_pdf_text
         pluginClass: ReadPdfTextPlugin
+      ios:
+        pluginClass: ReadPdfTextPlugin
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
