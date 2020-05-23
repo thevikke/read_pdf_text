@@ -1,7 +1,7 @@
 # read_pdf_text
 
 This package parses text out of PDF documents and returns it as a string. 
-On Android the plugin uses [PDFbox](https://github.com/apache/pdfbox) open source library.
+On Android the plugin uses [PDFbox](https://github.com/TomRoush/PdfBox-Android) open source library modified by Tom Roush.
 The iOS version is not implemented yet.
 
 
