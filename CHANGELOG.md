@@ -21,3 +21,11 @@ Added functionality for paginating the text from pdf document.
 Added functionality to fetch the length of the pdf document in pages.
 Updated example to represent these changes.
 Updated README and description
+## 0.1.0
+Add iOS functionality:
+	- getPDFtext()
+	- getPDFtextPaginated()
+	- getPDFlength()
+Documentation for those methods.
+Updated README.md of this package and README.md of the example.
+Updated file_picker plugin in the example. Some code changes to reflect new version of file_picker.

@@ -8,7 +8,6 @@ On Android the plugin uses [PDFbox](https://github.com/TomRoush/PdfBox-Android) 
 ## iOS
 The iOS plugin uses PDFKit to parse the text out of PDF documents. It requires iOS version 11 or higher.
 
-
 ## Getting Started
 
 The package only has three functions getPDFtext(path), getPDFtextPaginated(path) and getPDFlength(path).
