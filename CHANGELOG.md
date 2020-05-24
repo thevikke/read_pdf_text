@@ -29,3 +29,5 @@ Add iOS functionality:
 Documentation for those methods.
 Updated README.md of this package and README.md of the example.
 Updated file_picker plugin in the example. Some code changes to reflect new version of file_picker.
+## 0.1.1
+Updated dart documentation.
