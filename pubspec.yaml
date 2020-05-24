@@ -1,6 +1,6 @@
 name: read_pdf_text
 description: This is a plugin that parses string out of pdf documents. It uses apache PDFbox to parse the pdf document. There is only three functions so it is simple to use.
-version: 0.0.8
+version: 1.0.0
 homepage: https://github.com/thevikke/read_pdf_text
 
 environment:

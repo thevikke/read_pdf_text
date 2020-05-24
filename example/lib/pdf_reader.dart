@@ -50,9 +50,9 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
                   onPressed: () {
                     // This example uses file picker to get the path
                     FilePicker.getFile(
-                            allowedExtensions: ["pdf"],
-                type: FileType.custom,)
-                        .then((File file) async {
+                      allowedExtensions: ["pdf"],
+                      type: FileType.custom,
+                    ).then((File file) async {
                       if (file != null) {
                         setState(() {
                           _loading = true;
@@ -78,9 +78,9 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
                   onPressed: () {
                     // This example uses file picker to get the path
                     FilePicker.getFile(
-                           allowedExtensions: ["pdf"],
-                type: FileType.custom,)
-                        .then((File file) async {
+                      allowedExtensions: ["pdf"],
+                      type: FileType.custom,
+                    ).then((File file) async {
                       if (file != null) {
                         setState(() {
                           _loading = true;
@@ -111,9 +111,9 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
                   onPressed: () {
                     // This example uses file picker to get the path
                     FilePicker.getFile(
-                             allowedExtensions: ["pdf"],
-                type: FileType.custom,)
-                        .then((File file) async {
+                      allowedExtensions: ["pdf"],
+                      type: FileType.custom,
+                    ).then((File file) async {
                       if (file != null) {
                         setState(() {
                           _loading = true;
@@ -169,6 +169,7 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
     );
   }
 
+  // Gets all the text from a PDF document, returns it in string.
   Future<String> getPDFtext(String path) async {
     String text = "";
     try {
@@ -179,6 +180,7 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
     return text;
   }
 
+  // Gets all the text from PDF document, returns it in array where each element is a page of the document.
   Future<List<String>> getPDFtextPaginated(String path) async {
     List<String> textList = List<String>();
     try {
@@ -187,6 +189,7 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
     return textList;
   }
 
+  // Gets the length of the PDF document.
   Future<int> getPDFlength(String path) async {
     int length = 0;
     try {

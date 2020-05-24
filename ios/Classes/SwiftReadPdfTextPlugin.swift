@@ -34,7 +34,7 @@ public class SwiftReadPdfTextPlugin: NSObject, FlutterPlugin {
         }
       }
   }
-
+  // Gets all the text from the PDF document to a string [pdfText].
   private func getPDFtext (result: FlutterResult, path: String)
   {
           var pdfText = ""
@@ -59,7 +59,7 @@ public class SwiftReadPdfTextPlugin: NSObject, FlutterPlugin {
                 }
             }
   }
-
+// Gets text from each page of the PDF document to elements in [pdfArray].
 private func getPDFtextPaginated (result: FlutterResult, path: String)
   {
       var pdfArray = [String]()
@@ -84,6 +84,7 @@ private func getPDFtextPaginated (result: FlutterResult, path: String)
                 }
             }
   }
+  // Gets the length of the document into [pageCount].
   private func getPDFlength (result: FlutterResult, path: String)
   {
       if let pdf = PDFDocument(url: URL(fileURLWithPath: path)) {
