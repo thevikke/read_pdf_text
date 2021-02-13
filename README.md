@@ -8,9 +8,9 @@ On Android the plugin uses [PDFbox](https://github.com/TomRoush/PdfBox-Android) 
 ## iOS
 The iOS plugin uses PDFKit to parse the text out of PDF documents. It requires iOS version 11 or higher.
 
-**For error like: "Could not find or use auto-linked library 'swiftObjectiveC'"
+**For error like: "Could not find or use auto-linked library 'swiftObjectiveC'"**
 
-**Solution can be found here: https://stackoverflow.com/a/54586937/2881394
+**Solution can be found here: https://stackoverflow.com/a/54586937/2881394**
 
 ## Getting Started
 
