@@ -14,7 +14,7 @@ class PDFreaderExample extends StatefulWidget {
 class _PDFreaderExampleState extends State<PDFreaderExample> {
   String _pdfText = '';
   List<String> _pdfList = [];
-  int _pdfLength;
+  int _pdfLength = 0;
 
   bool _loading = false;
   bool _paginated = false;
@@ -27,14 +27,9 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
           Padding(
             padding: const EdgeInsets.only(right: 50),
             child: Center(
-              child: _pdfLength == null
-                  ? Text(
-                      "No pages yet",
-                      style: TextStyle(color: Colors.red),
-                    )
-                  : Text(
-                      "Pages : $_pdfLength",
-                    ),
+              child: Text(
+                "Pages : $_pdfLength",
+              ),
             ),
           ),
         ],
@@ -45,92 +40,94 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
           Row(
             children: <Widget>[
               Expanded(
-                child: FlatButton(
-                  color: Colors.blueGrey,
-                  onPressed: () {
-                    // This example uses file picker to get the path
-                    FilePicker.getFile(
-                      allowedExtensions: ["pdf"],
+                child: TextButton(
+                  onPressed: () async {
+                    final FilePickerResult? result =
+                        await FilePicker.platform.pickFiles(
                       type: FileType.custom,
-                    ).then((File file) async {
-                      if (file != null) {
+                      allowedExtensions: ['pdf'],
+                    );
+
+                    if (result != null) {
+                      // This example uses file picker to get the path
+                      File file = File(result.files.single.path ?? "");
+                      setState(() {
+                        _loading = true;
+                      });
+                      // Call the function to parse text from pdf
+                      getPDFtext(file.path).then((pdfText) {
+                        final text = pdfText.replaceAll("\n", " ");
                         setState(() {
-                          _loading = true;
+                          _pdfText = text;
+                          _paginated = false;
+                          _loading = false;
                         });
-                        // Call the function to parse text from pdf
-                        getPDFtext(file.path).then((pdfText) {
-                          final text = pdfText.replaceAll("\n", " ");
-                          setState(() {
-                            _pdfText = text;
-                            _paginated = false;
-                            _loading = false;
-                          });
-                        });
-                      }
-                    });
+                      });
+                    } else {
+                      // User canceled the picker
+                    }
                   },
                   child: Text("Get pdf text"),
                 ),
               ),
               Expanded(
-                child: FlatButton(
-                  color: Colors.blue,
-                  onPressed: () {
-                    // This example uses file picker to get the path
-                    FilePicker.getFile(
-                      allowedExtensions: ["pdf"],
+                child: TextButton(
+                  onPressed: () async {
+                    final FilePickerResult? result =
+                        await FilePicker.platform.pickFiles(
                       type: FileType.custom,
-                    ).then((File file) async {
-                      if (file != null) {
-                        setState(() {
-                          _loading = true;
+                      allowedExtensions: ['pdf'],
+                    );
+                    if (result != null) {
+                      File file = File(result.files.single.path ?? "");
+                      // This example uses file picker to get the path
+                      setState(() {
+                        _loading = true;
+                      });
+                      // Call the function to parse text from pdf
+                      getPDFtextPaginated(file.path).then((pdfList) {
+                        List<String> list = <String>[];
+                        // Remove new lines
+                        pdfList.forEach((element) {
+                          list.add(element.replaceAll("\n", " "));
                         });
-                        // Call the function to parse text from pdf
-                        getPDFtextPaginated(file.path).then((pdfList) {
-                          List<String> list = List<String>();
-                          // Remove new lines
-                          pdfList.forEach((element) {
-                            list.add(element.replaceAll("\n", " "));
-                          });
 
-                          setState(() {
-                            _pdfList = list;
-                            _paginated = true;
-                            _loading = false;
-                          });
+                        setState(() {
+                          _pdfList = list;
+                          _paginated = true;
+                          _loading = false;
                         });
-                      }
-                    });
+                      });
+                    }
                   },
                   child: Text("Get pdf text paginated"),
                 ),
               ),
               Expanded(
-                child: FlatButton(
-                  color: Colors.green,
-                  onPressed: () {
-                    // This example uses file picker to get the path
-                    FilePicker.getFile(
-                      allowedExtensions: ["pdf"],
+                child: TextButton(
+                  onPressed: () async {
+                    final FilePickerResult? result =
+                        await FilePicker.platform.pickFiles(
                       type: FileType.custom,
-                    ).then((File file) async {
-                      if (file != null) {
+                      allowedExtensions: ['pdf'],
+                    );
+                    if (result != null) {
+                      File file = File(result.files.single.path ?? "");
+                      setState(() {
+                        _loading = true;
+                      });
+                      // Call the function to parse text from pdf
+                      getPDFlength(file.path).then((length) {
                         setState(() {
-                          _loading = true;
-                        });
-                        // Call the function to parse text from pdf
-                        getPDFlength(file.path).then((length) {
-                          setState(() {
-                            _pdfLength = length;
+                          _pdfLength = length;
 
-                            // Reset variables
-                            _pdfList = [];
-                            _pdfText = " ";
-                            _loading = false;
-                          });
+                          // Reset variables
+                          _pdfList = [];
+                          _pdfText = " ";
+                          _loading = false;
                         });
-                      }
-                    });
+                      });
+                    }
                   },
                   child: Text("Get document length (pages)"),
                 ),
@@ -182,7 +179,7 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
 
   // Gets all the text from PDF document, returns it in array where each element is a page of the document.
   Future<List<String>> getPDFtextPaginated(String path) async {
-    List<String> textList = List<String>();
+    List<String> textList = <String>[];
     try {
       textList = await ReadPdfText.getPDFtextPaginated(path);
     } on PlatformException {}
