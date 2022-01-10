@@ -172,7 +172,7 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
     try {
       text = await ReadPdfText.getPDFtext(path);
     } on PlatformException {
-      text = 'Failed to get PDF text.';
+      print("Failed to get PDF text.");
     }
     return text;
   }
@@ -182,7 +182,9 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
     List<String> textList = <String>[];
     try {
       textList = await ReadPdfText.getPDFtextPaginated(path);
-    } on PlatformException {}
+    } on PlatformException {
+      print("Failed to get PDF text.");
+    }
     return textList;
   }
 
@@ -191,7 +193,9 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
     int length = 0;
     try {
       length = await ReadPdfText.getPDFlength(path);
-    } on PlatformException {}
+    } on PlatformException {
+      print("Failed to get PDF text.");
+    }
     return length;
   }
 }

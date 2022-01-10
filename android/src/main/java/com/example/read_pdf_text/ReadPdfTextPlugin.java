@@ -89,7 +89,6 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
               // Loading the document
                  File renderFile = new File(path);
                  document = PDDocument.load(renderFile);
-                  
             } catch(IOException e) {
                 Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while loading document to strip", e);
             }finally {
@@ -101,18 +100,32 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
                     Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while closing document", e);
                 }
             }
-   
-     res.success(document.getNumberOfPages());
+     if (document != null) {
+        res.success(document.getNumberOfPages());
+     } else {
+        res.error("GENERIC ERROR","Something went wrong while parsing!", null);
+     }
   }
 
 
   // This is called when [PDfAsyncTask] has finished and returns the string.
   static void doneParsing(String parsedText) {
-        res.success(parsedText);
+        if (parsedText != null) {
+            res.success(parsedText);
+        } else
+        {
+            res.error("GENERIC ERROR","Something went wrong while parsing!", null);
+        }
+
     }
   // This is called when [PDfAsyncTask] has finished and returns the string.
   static void donePaginating(ArrayList<String> paginatedText) {
-        res.success(paginatedText);
+        if(paginatedText != null && !paginatedText.isEmpty()) {
+            res.success(paginatedText);
+        } else
+        {
+            res.error("GENERIC ERROR","Something went wrong while parsing!", null);
+        }
     }
     // This [AsyncTask] runs on another Thread, so that it doesn't block Main Thread
     // [doInBackGround] is used for the parsing and [onPostExecute] is used to return the text back to Main Thread
@@ -136,30 +149,28 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
             } catch(IOException e) {
                 Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while loading document", e);
             }
-
-            try {
-              // Create stripper that can parse the pdf document.
-                PDFTextStripper pdfStripper = new PDFTextStripper();
-
-                // Get the text/strings from the document
-                parsedText = pdfStripper.getText(document);
-          
-            }
-            catch (IOException e)
-            {
-                Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while stripping text", e);
-            } finally {
+            if (document != null) {
                 try {
-                    if (document != null) document.close();
+                    // Create stripper that can parse the pdf document.
+                    PDFTextStripper pdfStripper = new PDFTextStripper();
+
+                    // Get the text/strings from the document
+                    parsedText = pdfStripper.getText(document);
                 }
                 catch (IOException e)
                 {
-                    Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while closing document", e);
+                    Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while stripping text", e);
+                } finally {
+                    try {
+                        if (document != null) document.close();
+                    }
+                    catch (IOException e)
+                    {
+                        Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while closing document", e);
+                    }
                 }
             }
-          
             return parsedText;
-
         }
         // [doInBackground] returns the string to here.
         // Call [doneParsing] to pass the string back to Main Thread
@@ -173,11 +184,9 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
     // This [AsyncTask] runs on another Thread, so that it doesn't block Main Thread
     // [doInBackGround] is used for the parsing and [onPostExecute] is used to return the text back to Main Thread
     private class PaginatePDFAsyncTask extends AsyncTask<String, String, ArrayList<String>> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
         }
         @Override
         protected ArrayList<String> doInBackground(String... strings) {
@@ -192,38 +201,37 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
             } catch(IOException e) {
                 Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while loading document", e);
             }
-
-            try {
-              // Create stripper that can parse the pdf document.
-                PDFTextStripper pdfStripper = new PDFTextStripper();
-                // Get documentLength
-                int documentLength = document.getNumberOfPages();
-
-              //Paginating the text from PDF file
-               for(int i = 1; i <= documentLength; i++)
-               {
-                 // Set page that is gonna be parsed
-                   pdfStripper.setStartPage(i);
-                   pdfStripper.setEndPage(i);
-                   paginatedText.add(pdfStripper.getText(document));
-               }
-         
-            }
-            catch (IOException e)
-            {
-                Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while stripping text", e);
-            } finally {
+            if (document != null) {
                 try {
-                    if (document != null) document.close();
+                // Create stripper that can parse the pdf document.
+                    PDFTextStripper pdfStripper = new PDFTextStripper();
+                    // Get documentLength
+                    int documentLength = document.getNumberOfPages();
+
+                    //Paginating the text from PDF file
+                    for(int i = 1; i <= documentLength; i++)
+                    {
+                        // Set page that is gonna be parsed
+                        pdfStripper.setStartPage(i);
+                        pdfStripper.setEndPage(i);
+                        paginatedText.add(pdfStripper.getText(document));
+                    }
                 }
                 catch (IOException e)
                 {
-                    Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while closing document", e);
+                Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while stripping text", e);
                 }
-            }
-
+                finally {
+                    try {
+                        if (document != null) document.close();
+                    }
+                    catch (IOException e)
+                    {
+                        Log.e("Flutter-Read-Pdf-Plugin", "Exception thrown while closing document", e);
+                    }
+                }    
+            }   
             return paginatedText;
-
         }
         // [doInBackground] returns the string to here.
         // Call [doneParsing] to pass the string back to Main Thread
@@ -234,11 +242,7 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
            donePaginating(paginatedText);
         }
     }
-  
-
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
   }
-
-  
 }

@@ -55,3 +55,5 @@ Updated dart documentation.
 ## 0.2.0
 
 Breaking change! Updated package to support null-safety. Updated example to null-safety. Updated documentation.
+
+## TODO: 0.2.1
