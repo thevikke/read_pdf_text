@@ -35,7 +35,7 @@ Returns text from PDF file as a String.
     try {
       text = await ReadPdfText.getPDFtext(path);
     } on PlatformException {
-      text = 'Failed to get PDF text.';
+      print('Failed to get PDF text.');
     }
     return text;
   }
@@ -51,7 +51,7 @@ Returns text from PDF but in a String list, where each item is a page of the PDF
     try {
       textList = await ReadPdfText.getPDFtextPaginated(path);
     } on PlatformException {
-      text = 'Failed to get PDF text.';
+      print('Failed to get PDF text.');
     }
     return textList;
   }
@@ -67,7 +67,7 @@ Returns length of the document as an integer.
     try {
       length = await ReadPdfText.getPDFlength(path);
     } on PlatformException {
-      text = 'Failed to get PDF length';
+      print('Failed to get PDF length';)
     }
     return length;
   }

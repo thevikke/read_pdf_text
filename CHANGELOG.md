@@ -56,4 +56,6 @@ Updated dart documentation.
 
 Breaking change! Updated package to support null-safety. Updated example to null-safety. Updated documentation.
 
-## TODO: 0.2.1
+## 0.2.1
+
+Fix bug where the underlying [PDFbox](https://github.com/TomRoush/PdfBox-Android) plugin would break if downloading multiple PDF-files with the same name and then attempting to open one of them. Now throws a PlatformException. Additionally added PlatformExceptions if something else breaks within the Android code. This should allow users to catch the exception and inform the user that something went wrong.
