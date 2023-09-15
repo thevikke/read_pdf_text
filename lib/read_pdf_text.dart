@@ -15,6 +15,7 @@ class ReadPdfText {
   }
 
   /// Returns PDF document as List<String> in range where each element is a page of the PDF document
+  /// starting on index 1
   static Future<List<String>> getPDFtextForRange(String path, int startIndex, int endIndex) async {
     /// Mapping the path to <key, value>
     final List<dynamic> pdfTextPaginated = await _channel
