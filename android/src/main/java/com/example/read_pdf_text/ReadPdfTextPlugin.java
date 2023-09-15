@@ -205,13 +205,13 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
             ArrayList<String> paginatedText = new ArrayList<String>();
             PDDocument document = null;
             int startPage = 1;
-            int endPage = documentLength;
             try {
                 // The strings contains all arguments passed to the [AsyncTask], we only pass one argument so we take the first item
                 final String path = strings[0];
-                if(strings.length >= 2) {
+
+                // Set the startPage
+                if(strings.length >= 1) {
                     startPage = Integer.parseInt(strings[1]);
-                    endPage = Integer.parseInt(strings[2]);
                 }
                 File renderFile = new File(path);
                 document = PDDocument.load(renderFile);
@@ -220,10 +220,16 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
             }
             if (document != null) {
                 try {
-                // Create stripper that can parse the pdf document.
+                    // Create stripper that can parse the pdf document.
                     PDFTextStripper pdfStripper = new PDFTextStripper();
                     // Get documentLength
                     int documentLength = document.getNumberOfPages();
+                    int endPage = documentLength;
+
+                    // Set the endPage
+                    if(strings.length >= 2) {
+                        endPage = Integer.parseInt(strings[2]);
+                    }
 
                     //Paginating the text from PDF file
                     for(int i = startPage; i <= endPage; i++)
