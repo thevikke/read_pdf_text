@@ -59,7 +59,7 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
         final String path = call.argument("path");
         final int startIndex = call.argument("startIndex");
         final int endIndex = call.argument("endIndex");
-        parsePDFtextForPage(path, startIndex, endIndex);
+        parsePDFtextWithRange(path, startIndex, endIndex);
     } 
     else if(call.method.equals("getPDFtextPaginated")) {
         final String path = call.argument("path");
