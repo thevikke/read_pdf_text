@@ -55,6 +55,12 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
         final String path = call.argument("path");
         parsePDFtext(path);
       } 
+    else if (call.method.equals("getPDFtextForRange")) {
+        final String path = call.argument("path");
+        final int startIndex = call.argument("startIndex");
+        final int endIndex = call.argument("endIndex");
+        parsePDFtextForPage(path, startIndex, endIndex);
+    } 
     else if(call.method.equals("getPDFtextPaginated")) {
         final String path = call.argument("path");
         paginatePDFtext(path);
@@ -75,6 +81,11 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
   {
     PdfAsyncTask task = new PdfAsyncTask();
     task.execute(path);
+  }
+  private void parsePDFtextWithRange(String path, int startPage, int endPage)
+  {
+    PaginatePDFAsyncTask task = new PaginatePDFAsyncTask();
+    task.execute(path, startPage, endPage);
   }
   private void paginatePDFtext(String path)
   {
@@ -193,9 +204,15 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
 
             ArrayList<String> paginatedText = new ArrayList<String>();
             PDDocument document = null;
+            int startPage = 1;
+            int endPage = documentLength;
             try {
                 // The strings contains all arguments passed to the [AsyncTask], we only pass one argument so we take the first item
                 final String path = strings[0];
+                if(strings.length >= 2) {
+                    startPage = Integer.parseInt(strings[1]);
+                    endPage = Integer.parseInt(strings[2]);
+                }
                 File renderFile = new File(path);
                 document = PDDocument.load(renderFile);
             } catch(IOException e) {
@@ -209,7 +226,7 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
                     int documentLength = document.getNumberOfPages();
 
                     //Paginating the text from PDF file
-                    for(int i = 1; i <= documentLength; i++)
+                    for(int i = startPage; i <= endPage; i++)
                     {
                         // Set page that is gonna be parsed
                         pdfStripper.setStartPage(i);

@@ -14,6 +14,15 @@ class ReadPdfText {
     return pdfText;
   }
 
+  /// Returns PDF document as List<String> in range where each element is a page of the PDF document
+  static Future<List<String>> getPDFtextForRange(String path, int startIndex, int endIndex) async {
+    /// Mapping the path to <key, value>
+    final List<dynamic> pdfTextPaginated = await _channel
+        .invokeMethod('getPDFtextForRange', <String, dynamic>{'path': path, 'startIndex': startIndex, 'endIndex': endIndex});
+    List<String> list = pdfTextPaginated.cast<String>().toList();
+    return list;
+  }
+
   /// Returns PDF document as List<String> where each element is a page of the PDF document
   static Future<List<String>> getPDFtextPaginated(String path) async {
     /// Mapping the path to <key, value>
