@@ -85,7 +85,7 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
   private void parsePDFtextWithRange(String path, int startPage, int endPage)
   {
     PaginatePDFAsyncTask task = new PaginatePDFAsyncTask();
-    task.execute(path, startPage, endPage);
+    task.execute(path, Integer.toString(startPage), Integer.toString(endPage));
   }
   private void paginatePDFtext(String path)
   {
