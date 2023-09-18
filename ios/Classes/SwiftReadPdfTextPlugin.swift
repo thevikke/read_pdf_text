@@ -19,10 +19,16 @@ public class SwiftReadPdfTextPlugin: NSObject, FlutterPlugin {
         if call.method == "getPDFtext" {
             self.getPDFtext(result: result, path: path)
         }
+        else if call.method == "getPDFtextForRange"
+        {
+           let startPage = args["startIndex"] as! Int
+           let endPage = args["endIndex"] as! Int
+           self.getPDFtextForRange(result: result, path: path, startPage: startPage, endPage: endPage)
+        }  
         else if call.method == "getPDFtextPaginated"
         {
            self.getPDFtextPaginated(result: result, path: path)
-        }  
+        }
         else if call.method  == "getPDFlength"
         {
           self.getPDFlength(result: result, path: path)
@@ -48,6 +54,32 @@ public class SwiftReadPdfTextPlugin: NSObject, FlutterPlugin {
               }
                 DispatchQueue.main.sync {
                   result(pdfText);
+                }
+            }
+            else
+            {
+                DispatchQueue.main.sync {
+                  result(FlutterError(code: "NO_PATH",
+                  message: "Path cannot be found",
+                  details: nil))
+                }
+            }
+  }
+// Gets text from each page of the PDF document in a range to elements in [pdfArray].
+private func getPDFtextForRange (result: FlutterResult, path: String, startPage: Int, endPage: Int)
+  {
+      var pdfArray = [String]()
+
+            if let pdf = PDFDocument(url: URL(fileURLWithPath: path)) {
+            let pageCount = endPage - startPage + 1
+          
+              for i in 0 ..< pageCount {
+                  let pageNumber: Int = i + startPage - 1
+                  let pageContent = pdf.page(at: pageNumber)!.string!
+                  pdfArray.append(pageContent)
+              }
+                DispatchQueue.main.sync {
+                  result(pdfArray);
                 }
             }
             else
