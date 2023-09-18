@@ -113,6 +113,39 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
                     );
                     if (result != null) {
                       File file = File(result.files.single.path ?? "");
+                      // This example uses file picker to get the path
+                      setState(() {
+                        _loading = true;
+                      });
+                      // Call the function to parse text from pdf
+                      getPDFtextForRange(file.path).then((pdfList) {
+                        List<String> list = <String>[];
+                        // Remove new lines
+                        pdfList.forEach((element) {
+                          list.add(element.replaceAll("\n", " "));
+                        });
+
+                        setState(() {
+                          _pdfList = list;
+                          _paginated = true;
+                          _loading = false;
+                        });
+                      });
+                    }
+                  },
+                  child: Text("Get pdf text for range"),
+                ),
+              ),
+              Expanded(
+                child: TextButton(
+                  onPressed: () async {
+                    final FilePickerResult? result =
+                        await FilePicker.platform.pickFiles(
+                      type: FileType.custom,
+                      allowedExtensions: ['pdf'],
+                    );
+                    if (result != null) {
+                      File file = File(result.files.single.path ?? "");
                       setState(() {
                         _loading = true;
                       });
@@ -184,6 +217,17 @@ class _PDFreaderExampleState extends State<PDFreaderExample> {
       textList = await ReadPdfText.getPDFtextPaginated(path);
     } on PlatformException {
       print("Failed to get PDF text.");
+    }
+    return textList;
+  }
+
+  // Gets all the text, in a range, from PDF document, returns it in array where each element is a page of the document.
+  Future<List<String>> getPDFtextForRange(String path) async {
+    List<String> textList = <String>[];
+    try {
+      textList = await ReadPdfText.getPDFtextForRange(path, 1, 3);
+    } on PlatformException {
+      print("Failed to get PDF text for range 1 to 2.");
     }
     return textList;
   }
