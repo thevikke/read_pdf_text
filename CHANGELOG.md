@@ -59,3 +59,7 @@ Breaking change! Updated package to support null-safety. Updated example to null
 ## 0.2.1
 
 Fix bug where the underlying [PDFbox](https://github.com/TomRoush/PdfBox-Android) plugin would break if downloading multiple PDF-files with the same name and then attempting to open one of them. Now throws a PlatformException. Additionally added PlatformExceptions if something else breaks within the Android code. This should allow users to catch the exception and inform the user that something went wrong.
+
+## 0.2.2
+
+Fix bug where android version would crash at build phase. Caused by the removal of JCenter. [Link](https://github.com/thevikke/read_pdf_text/issues/9).

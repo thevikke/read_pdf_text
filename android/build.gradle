@@ -3,8 +3,11 @@ version '1.0'
 
 buildscript {
     repositories {
+        // Same as mavenCentral(), for some reason this works but that doesn't.
+		maven {         
+            url = uri("https://repo1.maven.org/maven2/")
+        }
         google()
-        jcenter()
     }
 
     dependencies {
@@ -14,8 +17,10 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
+        maven {         
+            url = uri("https://repo1.maven.org/maven2/")
+        }
         google()
-        jcenter()
     }
 }
 
@@ -32,6 +37,6 @@ android {
         disable 'InvalidPackage'
     }
     dependencies{
-        implementation 'com.tom_roush:pdfbox-android:1.8.10.1'
+        implementation 'com.tom-roush:pdfbox-android:1.8.10.3'
     }
 }

@@ -1,0 +1,6 @@
+example/android/.project
+example/android/.settings/
+example/android/settings_aar.gradle
+example/ios/Flutter/.last_build_id
+example/ios/Podfile
+example/ios/Podfile.lock
