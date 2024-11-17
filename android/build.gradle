@@ -3,40 +3,41 @@ version '1.0'
 
 buildscript {
     repositories {
-        // Same as mavenCentral(), for some reason this works but that doesn't.
-		maven {         
-            url = uri("https://repo1.maven.org/maven2/")
-        }
         google()
+        mavenCentral()
     }
 
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+   dependencies {
+        classpath("com.android.tools.build:gradle:8.1.0")
     }
 }
 
 rootProject.allprojects {
     repositories {
-        maven {         
-            url = uri("https://repo1.maven.org/maven2/")
-        }
         google()
+        mavenCentral()
     }
 }
 
-apply plugin: 'com.android.library'
+apply plugin: "com.android.library"
 
 android {
-    compileSdkVersion 28
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.example.read_pdf_text'
+    }
+
+    compileSdk = 34 
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
 
     defaultConfig {
-        minSdkVersion 16
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk 16
     }
-    lintOptions {
-        disable 'InvalidPackage'
-    }
+
     dependencies{
-        implementation 'com.tom-roush:pdfbox-android:1.8.10.3'
+        implementation 'com.tom-roush:pdfbox-android:2.0.27.0'
     }
 }
