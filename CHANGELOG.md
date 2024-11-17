@@ -63,3 +63,9 @@ Fix bug where the underlying [PDFbox](https://github.com/TomRoush/PdfBox-Android
 ## 0.2.2
 
 Fix bug where android version would crash at build phase. Caused by the removal of JCenter. [Link](https://github.com/thevikke/read_pdf_text/issues/9).
+
+## 0.2.3
+
+- Added support for gradle declarative plugin blocks.
+- Upgraded the Android Gradle Plugin (AGP) version to 8.1.0 ([Related issue](https://github.com/thevikke/read_pdf_text/issues/10)).
+- Upgraded pdfbox-android to 2.0.27.0.
