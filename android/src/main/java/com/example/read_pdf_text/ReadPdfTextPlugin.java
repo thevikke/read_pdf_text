@@ -9,7 +9,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 import com.tom_roush.pdfbox.pdmodel.PDDocument;
 import com.tom_roush.pdfbox.text.PDFTextStripper;
@@ -20,29 +19,24 @@ import java.io.IOException;
 import android.util.Log;
 
 
-
 /** ReadPdfTextPlugin */
 public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
-
+  private MethodChannel channel;
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-  
-    final MethodChannel channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "read_pdf_text");
-
-    channel.setMethodCallHandler(new ReadPdfTextPlugin());
-        // Getting the application context for pdfBox.
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "read_pdf_text");
+    channel.setMethodCallHandler(this);
     PDFBoxResourceLoader.init(flutterPluginBinding.getApplicationContext());
   }
 
-  public static void registerWith(Registrar registrar) {
-
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "read_pdf_text");
-    channel.setMethodCallHandler(new ReadPdfTextPlugin());
-      // Getting the application context for pdfBox.
-    PDFBoxResourceLoader.init(registrar.activity().getApplicationContext());
+  @Override
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+    if (channel != null) {
+        channel.setMethodCallHandler(null);
+        channel = null;
+    }
   }
-
 
  static Result res;
   // Calls [parsePDFtext] when getting MethodCall
@@ -242,7 +236,4 @@ public class ReadPdfTextPlugin implements FlutterPlugin, MethodCallHandler {
            donePaginating(paginatedText);
         }
     }
-  @Override
-  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-  }
 }

@@ -69,3 +69,31 @@ Fix bug where android version would crash at build phase. Caused by the removal 
 - Added support for gradle declarative plugin blocks.
 - Upgraded the Android Gradle Plugin (AGP) version to 8.1.0 ([Related issue](https://github.com/thevikke/read_pdf_text/issues/10)).
 - Upgraded pdfbox-android to 2.0.27.0.
+
+## 0.3.0
+
+### Breaking Changes
+
+- **Removed deprecated `PluginRegistry.Registrar` API**.
+  - The plugin now fully supports Flutter's v2 embedding (`FlutterPlugin`).
+  - The static `registerWith(Registrar registrar)` method has been removed.
+  - This means older projects using Flutter's v1 embedding may need to upgrade.
+  
+### Migration Steps
+
+- No additional steps are needed for Flutter 2+ projects.
+- If you are using an older Flutter version (before Flutter 1.12), use an earlier version of this plugin.
+
+### Improvements
+
+- Improved plugin lifecycle management by implementing `onAttachedToEngine` and `onDetachedFromEngine`.
+- Ensured compatibility with Flutter 3.29.0 and newer.
+
+### Other Changes
+
+- Removed unnecessary `Registrar` imports.
+- Cleaned up AndroidManifest.xml to align with the latest Gradle requirements.
+
+### Related Issues
+
+<https://github.com/thevikke/read_pdf_text/issues/11>
