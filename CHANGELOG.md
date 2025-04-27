@@ -97,3 +97,7 @@ Fix bug where android version would crash at build phase. Caused by the removal 
 ### Related Issues
 
 <https://github.com/thevikke/read_pdf_text/issues/11>
+
+## 0.3.1
+
+- Fix iOS crash when PDF has an empty page. <https://github.com/thevikke/read_pdf_text/pull/13>
